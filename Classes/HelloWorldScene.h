@@ -1,6 +1,9 @@
 #ifndef __HELLOWORLD_SCENE_H__
 #define __HELLOWORLD_SCENE_H__
 
+#define YES TRUE
+#define NO FALSE
+
 #include "cocos2d.h"
 USING_NS_CC;
 class HelloWorld : public cocos2d::CCLayer
@@ -25,6 +28,16 @@ public:
 	CCArray *waypoints;
 
 	void addWaypoints();
+
+	BOOL circle(CCPoint circlePoint, float radius, CCPoint circlePointTwo, float radiusTwo);
+	void ccFillPoly(CCPoint* poli, int points, BOOL closePolygon);
+	void enemyGotKilled();
+	void getHpDamage();
+
+	int wave;
+	CCLabelBMFont *ui_wave_lbl;
+	CCArray* enemies;
+	BOOL loadWave();
 };
 
 #endif // __HELLOWORLD_SCENE_H__

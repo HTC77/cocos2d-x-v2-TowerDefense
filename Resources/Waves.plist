@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>wave1</key>
+	<dict>
+			<key>data1</key>
+			<string></string>
+			<key>spawnTime1</key>
+			<real>0.1</real>
+
+			<key>data2</key>
+			<string></string>
+			<key>spawnTime2</key>
+			<real>0.5</real>
+
+			<key>data3</key>
+			<string></string>
+			<key>spawnTime3</key>
+			<real>0.6</real>
+
+			<key>data4</key>
+			<string></string>
+			<key>spawnTime4</key>
+			<integer>1</integer>
+
+			<key>data5</key>
+			<string></string>
+			<key>spawnTime5</key>
+			<integer>3</integer>
+
+			<key>data6</key>
+			<string></string>
+			<key>spawnTime6</key>
+			<integer>6</integer>
+
+
+	</dict>
+	<key>wave2</key>
+	<dict>
+	
+
+			<key>data7</key>
+			<string></string>
+			<key>spawnTime7</key>
+			<integer>1</integer>
+
+			<key>data8</key>
+			<string></string>
+			<key>spawnTime8</key>
+			<integer>2</integer>
+
+			<key>data9</key>
+			<string></string>
+			<key>spawnTime9</key>
+			<integer>3</integer>
+			
+	</dict>
+		<key>wave3</key>
+	<dict>
+	
+
+			<key>data10</key>
+			<string></string>
+			<key>spawnTime10</key>
+			<integer>1</integer>
+
+			<key>data11</key>
+			<string></string>
+			<key>spawnTime11</key>
+			<integer>2</integer>
+
+			<key>data12</key>
+			<string></string>
+			<key>spawnTime12</key>
+			<integer>3</integer>
+
+			<key>data13</key>
+			<string></string>
+			<key>spawnTime13</key>
+			<integer>4</integer>
+
+			<key>data14</key>
+			<string></string>
+			<key>spawnTime14</key>
+			<integer>5</integer>
+			
+	</dict>
+</dict>
+</plist>
