@@ -1,5 +1,6 @@
 #include "HelloWorldScene.h"
 #include "Tower.h"
+#include "Waypoint.h"
 USING_NS_CC;
 
 CCScene* HelloWorld::scene()
@@ -42,6 +43,9 @@ bool HelloWorld::init()
 
 	// 3 - Load tower positions
 	this->loadTowerPositions();
+
+	// 4 - Add waypoints
+	this->addWaypoints();
 
     return true;
 }
@@ -102,5 +106,33 @@ void HelloWorld::ccTouchesBegan(CCSet* pTouches, CCEvent* event)
 			tb->setUserData(tower);
 		}
 	}
-	CCLOG("TOEWR COUNT: %d", towerBases->count());
+}
+
+
+void HelloWorld::addWaypoints()
+{
+	waypoints = new CCArray();
+
+	Waypoint * waypoint1 = Waypoint::createWithTheGame (this,ccp(420, 35));
+	waypoints->addObject(waypoint1);
+
+	Waypoint * waypoint2 = Waypoint::createWithTheGame (this,ccp(35, 35));
+	waypoints->addObject(waypoint2);
+	waypoint2->nextWaypoint = waypoint1;
+
+	Waypoint * waypoint3 = Waypoint::createWithTheGame (this,ccp(35, 130));
+	waypoints->addObject(waypoint3);
+	waypoint3->nextWaypoint = waypoint2;
+
+	Waypoint * waypoint4 = Waypoint::createWithTheGame (this,ccp(445, 130));
+	waypoints->addObject(waypoint4);
+	waypoint4->nextWaypoint = waypoint3;
+
+	Waypoint * waypoint5 = Waypoint::createWithTheGame (this,ccp(445, 220));
+	waypoints->addObject(waypoint5);
+	waypoint5->nextWaypoint = waypoint4;
+
+	Waypoint * waypoint6 = Waypoint::createWithTheGame (this,ccp(-40, 220));
+	waypoints->addObject(waypoint6);
+	waypoint6->nextWaypoint = waypoint5;
 }

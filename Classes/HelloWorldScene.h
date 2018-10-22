@@ -21,6 +21,10 @@ public:
 
 	BOOL canBuyTower();
 	void ccTouchesBegan(CCSet* pTouches, CCEvent* event);
+
+	CCArray *waypoints;
+
+	void addWaypoints();
 };
 
 #endif // __HELLOWORLD_SCENE_H__
