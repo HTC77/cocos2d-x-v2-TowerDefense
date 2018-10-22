@@ -1,5 +1,5 @@
 #include "HelloWorldScene.h"
-#include <sstream>
+#include "Tower.h"
 USING_NS_CC;
 
 CCScene* HelloWorld::scene()
@@ -28,7 +28,8 @@ bool HelloWorld::init()
     }
     
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
-
+	towerBases = new CCArray(12);
+	towers = new CCArray();
 
 	// 1 - Initialize
 	this->setTouchEnabled(true);
@@ -49,7 +50,6 @@ bool HelloWorld::init()
 void HelloWorld::loadTowerPositions()
 {
 	CCDictionary* towerPositions = CCDictionary::createWithContentsOfFile("TowersPosition.plist");
-	CCArray* towerBases = CCArray::createWithCapacity(10);
 
 	bool coordToggle = true;
 	int x, y;
@@ -62,7 +62,7 @@ void HelloWorld::loadTowerPositions()
 		if (coordToggle)
 		{
 			
-			x = std::stoi( pVal->getCString());
+			x = std::stoi(pVal->getCString());
 			coordToggle = false;
 		}
 		else
@@ -77,3 +77,30 @@ void HelloWorld::loadTowerPositions()
 	}
 }
 
+
+BOOL HelloWorld::canBuyTower()
+{
+	return true;
+}
+
+void HelloWorld::ccTouchesBegan(CCSet* pTouches, CCEvent* event)
+{
+	CCTouch* touch = (CCTouch*) pTouches->anyObject();
+	CCPoint location = touch->getLocationInView();
+	location = CCDirector::sharedDirector()->convertToGL(location);
+
+	CCObject* t = NULL;
+	CCARRAY_FOREACH(towerBases,t)
+	{
+		CCSprite* tb = (CCSprite*) t;
+		if (tb->boundingBox().containsPoint(location) && this->canBuyTower() && !tb->getUserData())
+		{
+			//We will spend our gold later.
+
+			Tower * tower = Tower::createWithTheGame(this, tb->getPosition());
+			towers->addObject(tower);
+			tb->setUserData(tower);
+		}
+	}
+	CCLOG("TOEWR COUNT: %d", towerBases->count());
+}

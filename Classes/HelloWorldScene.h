@@ -2,7 +2,7 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "cocos2d.h"
-
+USING_NS_CC;
 class HelloWorld : public cocos2d::CCLayer
 {
 public:
@@ -15,9 +15,12 @@ public:
     // implement the "static node()" method manually
     CREATE_FUNC(HelloWorld);
 
-	//CCArray* towerBases;
+	CCArray* towerBases;
 	void loadTowerPositions();
+	CCArray* towers;
 
+	BOOL canBuyTower();
+	void ccTouchesBegan(CCSet* pTouches, CCEvent* event);
 };
 
 #endif // __HELLOWORLD_SCENE_H__
