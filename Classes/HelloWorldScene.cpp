@@ -61,6 +61,12 @@ bool HelloWorld::init()
 	ui_wave_lbl->setPosition(ccp(400, winSize.height - 12));
 	ui_wave_lbl->setAnchorPoint(ccp(0, 0.5));
 
+	// 7 - Player lives
+	playerHp = 5;
+	ui_hp_lbl = CCLabelBMFont::create(CCString::createWithFormat("HP: %d", playerHp)->getCString(),"font_red_14.fnt");
+	this->addChild(ui_hp_lbl,10);
+	ui_hp_lbl->setPosition(ccp(35, winSize.height - 12));
+	gameEnded = false;
     return true;
 }
 
@@ -170,11 +176,6 @@ void HelloWorld::ccFillPoly(CCPoint* poli, int points, BOOL closePolygon)
 
 }
 
-void HelloWorld::getHpDamage()
-{
-
-}
-
 BOOL HelloWorld::loadWave() 
 {
 
@@ -220,5 +221,21 @@ void HelloWorld::enemyGotKilled()
 			CCLog("You win!");			
 			CCDirector::sharedDirector()->replaceScene(CCTransitionSplitCols::create(1, HelloWorld::scene()));
 		}
+	}
+}
+
+
+void HelloWorld::getHpDamage(){
+	playerHp--;
+	ui_hp_lbl->setString(CCString::createWithFormat("HP: %d", playerHp)->getCString());
+	if (playerHp <= 0) {
+		this->doGameOver();
+	}
+}
+
+void HelloWorld::doGameOver(){
+	if (!gameEnded) {
+		gameEnded = YES;
+		CCDirector::sharedDirector()->replaceScene(CCTransitionRotoZoom::create(3,HelloWorld::scene()));
 	}
 }

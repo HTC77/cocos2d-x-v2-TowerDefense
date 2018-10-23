@@ -38,6 +38,12 @@ public:
 	CCLabelBMFont *ui_wave_lbl;
 	CCArray* enemies;
 	BOOL loadWave();
+
+	int playerHp;
+	CCLabelBMFont *ui_hp_lbl;
+	BOOL gameEnded;
+
+	void doGameOver();
 };
 
 #endif // __HELLOWORLD_SCENE_H__
