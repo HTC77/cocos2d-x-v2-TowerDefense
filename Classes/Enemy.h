@@ -6,9 +6,11 @@
 #include "cocos2d.h"
 #include "HelloWorldScene.h"
 #include "Waypoint.h"
+#include "Tower.h"
 
 USING_NS_CC;
 
+class Tower;
 class Enemy : public CCNode
 {
 public:
@@ -33,6 +35,12 @@ public:
 	void getRemoved();
 	void draw();
 	void update(float dt);
+
+	CCArray *attackedBy;
+	void getAttacked(Tower* attacker);
+	void gotLostSight(Tower* attacker);
+	void getDamaged(int damage);
+
 };
 
 #endif

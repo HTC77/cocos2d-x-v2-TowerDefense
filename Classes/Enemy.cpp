@@ -1,5 +1,4 @@
 #include "Enemy.h"
-#include "Tower.h"
 
 #define HEALTH_BAR_WIDTH 20
 #define HEALTH_BAR_ORIGIN -10
@@ -76,6 +75,7 @@ bool Enemy::initWithTheGame(HelloWorld* _game)
 
 	this->scheduleUpdate();
 
+	attackedBy = new CCArray(5);
 	return true;
 }
 
@@ -116,7 +116,15 @@ void Enemy::update(float dt)
 
 void Enemy::getRemoved()
 {
+	CCObject* t = NULL;
+	CCARRAY_FOREACH(attackedBy,t)
+	{
+		Tower* attacker = (Tower*)t;
+		attacker->targetKilled();
+	}
+
 	this->removeFromParentAndCleanup(YES);
+
 	theGame->enemies->removeObject(this);
 
 	//Notify the game that we killed an enemy so we can check if we can send another wave
@@ -138,4 +146,23 @@ void Enemy::draw()
 		myPosition.y + 14),
 		ccc4f(0, 1.0, 0, 1.0)
 	);
+}
+
+void Enemy::getAttacked(Tower* attacker)
+{
+	attackedBy->addObject(attacker);
+}
+
+void Enemy::gotLostSight(Tower* attacker)
+{
+	attackedBy->removeObject(attacker);
+}
+
+void Enemy::getDamaged(int damage)
+{
+	currentHp -= damage;
+	if (currentHp <= 0)
+	{
+		this->getRemoved();
+	}
 }

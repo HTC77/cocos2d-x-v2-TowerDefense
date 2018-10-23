@@ -5,10 +5,12 @@
 
 #include "cocos2d.h"
 #include "HelloWorldScene.h"
+#include "Enemy.h"
+
 USING_NS_CC;
 
 #define kTOWER_COST 300
-
+class Enemy;
 class Tower : public CCNode
 {
 public:
@@ -27,6 +29,17 @@ public:
 
 	void update(float dt);
 	void draw();
+
+	BOOL attacking;
+	Enemy* chosenEnemy;
+	void targetKilled();
+	
+	void attackEnemy();
+	void shootWeapon(float dt);
+	void chosenEnemyForAttack(Enemy* enemy);
+	void removeBullet(CCSprite* bullet);
+	void damageEnemy();
+	void lostSightOfEnemy();
 };
 
 #endif
