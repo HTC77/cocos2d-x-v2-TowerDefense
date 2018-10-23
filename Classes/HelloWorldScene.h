@@ -44,6 +44,11 @@ public:
 	BOOL gameEnded;
 
 	void doGameOver();
+
+	int playerGold;
+	CCLabelBMFont *ui_gold_lbl;
+
+	void awardGold(int gold);
 };
 
 #endif // __HELLOWORLD_SCENE_H__

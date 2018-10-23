@@ -2,6 +2,7 @@
 #include "Tower.h"
 #include "Waypoint.h"
 #include "Enemy.h"
+#include "SimpleAudioEngine.h"
 
 using namespace std;
 
@@ -67,6 +68,20 @@ bool HelloWorld::init()
 	this->addChild(ui_hp_lbl,10);
 	ui_hp_lbl->setPosition(ccp(35, winSize.height - 12));
 	gameEnded = false;
+
+
+
+	// 8 - Gold
+	playerGold = 1000;
+	ui_gold_lbl = CCLabelBMFont::create(CCString::createWithFormat("GOLD: %d", playerGold)->getCString(),"font_red_14.fnt");
+	this->addChild(ui_gold_lbl,10);
+	ui_gold_lbl->setPosition(ccp(135, winSize.height - 12));
+	ui_gold_lbl->setAnchorPoint(ccp(0, 0.5));
+
+	// 9 - sound
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("8bitDungeonLevel.mp3",YES);
+
+
     return true;
 }
 
@@ -104,7 +119,9 @@ void HelloWorld::loadTowerPositions()
 
 BOOL HelloWorld::canBuyTower()
 {
-	return true;
+	if (playerGold - kTOWER_COST >= 0)
+		return YES;
+	return NO;
 }
 
 void HelloWorld::ccTouchesBegan(CCSet* pTouches, CCEvent* event)
@@ -119,8 +136,10 @@ void HelloWorld::ccTouchesBegan(CCSet* pTouches, CCEvent* event)
 		CCSprite* tb = (CCSprite*) t;
 		if (tb->boundingBox().containsPoint(location) && this->canBuyTower() && !tb->getUserData())
 		{
-			//We will spend our gold later.
-
+			//spend gold
+			playerGold -= kTOWER_COST;
+			ui_gold_lbl->setString(CCString::createWithFormat("GOLD: %d", playerGold)->getCString());
+			CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("tower_place.wav");
 			Tower * tower = Tower::createWithTheGame(this, tb->getPosition());
 			towers->addObject(tower);
 			tb->setUserData(tower);
@@ -226,6 +245,7 @@ void HelloWorld::enemyGotKilled()
 
 
 void HelloWorld::getHpDamage(){
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("life_lose.wav");
 	playerHp--;
 	ui_hp_lbl->setString(CCString::createWithFormat("HP: %d", playerHp)->getCString());
 	if (playerHp <= 0) {
@@ -238,4 +258,10 @@ void HelloWorld::doGameOver(){
 		gameEnded = YES;
 		CCDirector::sharedDirector()->replaceScene(CCTransitionRotoZoom::create(3,HelloWorld::scene()));
 	}
+}
+
+void HelloWorld::awardGold(int gold)
+{
+	playerGold += gold;
+	ui_gold_lbl->setString(CCString::createWithFormat("GOLD: %d", playerGold)->getCString());
 }
